@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VK Mini App</title>
+</head>
+<body>
+    <h1>VK Mini App</h1>
+    <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
+    <script>
+        console.log('VK Bridge script loaded.');
+
+        // Инициализация VK Bridge
+        vkBridge.send('VKWebAppGetAuthToken', {
+            "app_id": "52210495",  // Укажите здесь ваш ID приложения
+            "scope": "wall,groups"  // Запрашиваем права на доступ к стене и группам
+        }).then(data => {
+            console.log('VKWebAppGetAuthToken response received.');
+
+            if (data.access_token) {
+                // Успешно получили токен
+                console.log('Access Token:', data.access_token);
+            } else {
+                console.log('No access token received.');
+            }
+        }).catch(error => {
+            console.error('Error getting access token:', error);
+        });
+    </script>
+</body>
+</html>
