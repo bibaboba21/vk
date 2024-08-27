@@ -2,7 +2,6 @@ import bridge from '@vkontakte/vk-bridge';
 
 console.log('VK Bridge script loaded.');
 
-// Проверка доступа к VK Bridge
 if (typeof bridge === 'undefined') {
   console.error('VK Bridge is not defined.');
 }
