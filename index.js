@@ -1,22 +1,20 @@
-// Подключение VK Bridge с использованием относительного пути
-import bridge from './node_modules/@vkontakte/vk-bridge/dist/browser.min.js';
-
+// Убедитесь, что vk-bridge успешно подключен
 console.log('VK Bridge script loaded.');
 
-if (typeof bridge === 'undefined') {
+if (typeof vkBridge === 'undefined') {
   console.error('VK Bridge is not defined.');
 }
 
 // Запрос токена с правами на доступ к стене и группам
 console.log('Requesting access token...');
-bridge.send('VKWebAppGetAuthToken', {
-  "app_id": "52210495",
-  "scope": "wall,groups"
+vkBridge.send('VKWebAppGetAuthToken', {
+  "app_id": "52210495",  // Ваш ID приложения
+  "scope": "wall,groups"  // Запрашиваем права на доступ к стене и группам
 }).then(data => {
   console.log('VKWebAppGetAuthToken response received.', data);
   if (data.access_token) {
     console.log('Access Token:', data.access_token);
-    // Сохраните этот токен для использования в вашем парсере
+    // Используйте этот токен в вашем парсере
   } else {
     console.log('No access token received.');
   }
