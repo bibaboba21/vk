@@ -2,7 +2,7 @@ import bridge from '@vkontakte/vk-bridge';
 
 // Запрос токена с правами на доступ к стене и группам
 bridge.send('VKWebAppGetAuthToken', {
-  "app_id": app52210495,  // Замените на ID вашего мини-приложения
+  "app_id": "52210495",  // Укажите ваш ID приложения как строку
   "scope": "wall,groups"  // Запрашиваем права на доступ к стене и группам
 }).then(data => {
   if (data.access_token) {
