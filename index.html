@@ -3,36 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VK Mini App</title>
+    <title>VK Mini App Test</title>
 </head>
 <body>
-    <h1>VK Mini App</h1>
-    <!-- Подключаем vk-bridge через CDN -->
+    <h1>VK Mini App Test</h1>
+    <p>Проверьте консоль для логов.</p>
+
     <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
-    <!-- Подключаем наш скрипт -->
     <script>
         console.log('VK Bridge script loaded.');
 
-        if (typeof vkBridge === 'undefined') {
-          console.error('VK Bridge is not defined.');
-        }
+        // Тестируем разные варианты app_id
+        const appIds = [
+            52210495,         // Число без кавычек
+            "52210495",       // Число в виде строки
+            parseInt("52210495"), // Число, полученное из строки с помощью parseInt
+            Number("52210495")    // Число, полученное из строки с помощью Number
+        ];
 
-        // Запрос токена с правами на доступ к стене и группам
-        console.log('Requesting access token...');
-        vkBridge.send('VKWebAppGetAuthToken', {
-          "app_id": 52210495,  // Убедитесь, что передаете ID как число
-          "scope": "wall,groups"  // Запрашиваем права на доступ к стене и группам
-        }).then(data => {
-          console.log('VKWebAppGetAuthToken response received.', data);
-          if (data.access_token) {
-            console.log('Access Token:', data.access_token);
-            // Используйте этот токен в вашем парсере
-          } else {
-            console.log('No access token received.');
-          }
-        }).catch(error => {
-          console.error('Error getting access token:', error);
-          console.error('Error details:', error.error_type, error.error_data);
+        appIds.forEach(app_id => {
+            console.log(`Testing app_id: ${app_id} (type: ${typeof app_id})`);
+            vkBridge.send('VKWebAppGetAuthToken', {
+                "app_id": app_id, 
+                "scope": "wall,groups"
+            })
+            .then(data => {
+                if (data.access_token) {
+                    console.log(`Success with app_id: ${app_id} - Access Token: ${data.access_token}`);
+                } else {
+                    console.log(`No token received for app_id: ${app_id}`);
+                }
+            })
+            .catch(error => {
+                console.error(`Error with app_id: ${app_id} -`, error);
+            });
         });
     </script>
 </body>
