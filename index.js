@@ -8,7 +8,7 @@ if (typeof vkBridge === 'undefined') {
 // Запрос токена с правами на доступ к стене и группам
 console.log('Requesting access token...');
 vkBridge.send('VKWebAppGetAuthToken', {
-  "app_id": "52210495",  // Ваш ID приложения
+  "app_id": 52210495,  // Уберите кавычки, чтобы передать app_id как число
   "scope": "wall,groups"  // Запрашиваем права на доступ к стене и группам
 }).then(data => {
   console.log('VKWebAppGetAuthToken response received.', data);
